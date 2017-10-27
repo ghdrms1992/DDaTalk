@@ -22,4 +22,5 @@ public class Constants {
     public static final String URL_WRITING_DELETE_BY_WRITING_NO = ROOT_URL+"deleteWriting.php";
 
     public static final String URL_ALARM_INFO = ROOT_URL+"AlarmInfoByEmail.php";
+
 }

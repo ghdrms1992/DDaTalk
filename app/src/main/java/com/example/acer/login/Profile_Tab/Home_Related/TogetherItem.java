@@ -5,18 +5,18 @@ public class TogetherItem {
     private String email;
     private String content;
     private String date;
-    private int resId;
+    private String imgPath;
     private int together, comment;
     private int writing_no;
     private String rental_spot;
 
 
-    public TogetherItem(int writing_no,String email, String content,String date, int resId, int together, int comment,String rental_spot) {
+    public TogetherItem(int writing_no,String email, String content,String date, String imgPath, int together, int comment,String rental_spot) {
         this.writing_no = writing_no;
         this.email = email;
         this.content = content;
         this.date = date;
-        this.resId = resId;
+        this.imgPath = imgPath;
         this.together = together;
         this.comment = comment;
         this.rental_spot = rental_spot;
@@ -78,20 +78,11 @@ public class TogetherItem {
         this.content = content;
     }
 
-    public int getResId() {
-        return resId;
+    public String getimgPath() {
+        return imgPath;
     }
 
-    public void setResId(int resId) {this.resId = resId;}
+    public void setimgPath(String imgPath) {this.imgPath = imgPath;}
 
-    @Override
-    public String toString() {
-        return "TogetherItem{" +
-                "email='" + email + '\'' +
-                ", content='" + content + '\'' +
-                ", resId=" + resId +
-                ", together=" + together +
-                ", comment=" + comment +
-                '}';
-    }
+
 }

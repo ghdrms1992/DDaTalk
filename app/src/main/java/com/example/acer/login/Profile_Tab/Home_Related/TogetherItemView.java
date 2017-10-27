@@ -57,10 +57,6 @@ public class TogetherItemView extends LinearLayout {
         textView2.setText(content);
     }
 
-    public void setImageView(int resId){
-        imageView.setImageResource(resId);
-    }
-
     public void setTogether_tv(int together){
         together_tv.setText(String.valueOf(together));
     }

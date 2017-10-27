@@ -213,7 +213,8 @@
             android:layout_height="40dp"
             android:background="#00000000"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/back" />
+            app:srcCompat="@drawable/back"
+            android:contentDescription="" />
     </LinearLayout>
 
 

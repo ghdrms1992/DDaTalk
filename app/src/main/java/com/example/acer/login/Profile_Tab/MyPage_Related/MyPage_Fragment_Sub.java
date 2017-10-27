@@ -7,9 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -43,10 +40,6 @@ import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.MyPage_Fragment;
 import com.example.acer.login.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -59,6 +52,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
+import static com.example.acer.login.R.id.textView7;
 
 public class MyPage_Fragment_Sub extends Fragment {
 
@@ -93,6 +87,7 @@ public class MyPage_Fragment_Sub extends Fragment {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_mypage_sub, container, false);
@@ -105,9 +100,10 @@ public class MyPage_Fragment_Sub extends Fragment {
 
         photo_btn = (ImageButton)rootView.findViewById(R.id.photoButton);
         nameView = (TextView)rootView.findViewById(R.id.textView);
-        mtextView1 = (TextView)rootView.findViewById(R.id.textView7);
+        mtextView1 = (TextView)rootView.findViewById(textView7);
         mtextView2 = (TextView)rootView.findViewById(R.id.textView9);
         mtextView3 = (TextView)rootView.findViewById(R.id.textView11);
+
         user_profile = (ImageView)rootView.findViewById(R.id.user_profile);
 
         name = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUsername();
@@ -125,8 +121,7 @@ public class MyPage_Fragment_Sub extends Fragment {
         ImageButton logoutButton = (ImageButton)rootView.findViewById(R.id.logoutButton);
         ImageButton photoButton = (ImageButton)rootView.findViewById(R.id.photoButton);
 
-        //유저 이미지 가져오기 실행
-        ReceiveImg();
+
 
         //뒤로가기
         back_btn.setOnClickListener(new View.OnClickListener(){
@@ -195,8 +190,6 @@ public class MyPage_Fragment_Sub extends Fragment {
         });
 
 
-
-
         return rootView;
     }
 
@@ -260,6 +253,8 @@ public class MyPage_Fragment_Sub extends Fragment {
             {
                 try{
                     mImageCaptureUri = data.getData();
+
+
                     Log.d("ddaTalk", mImageCaptureUri.getPath().toString());
                 }
                 catch (Exception e) {
@@ -289,16 +284,19 @@ public class MyPage_Fragment_Sub extends Fragment {
                 {
                     return;
                 }
+
                 final Bundle extras = data.getExtras();
-                //crop된 이미지를 저장하기 위한 file경로
+
+
                 String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/DDaTalk/"+System.currentTimeMillis()+".jpg";
 
-                //파일경로를 db로 보내기
-                SendImg(filePath);
+
+
 
 
                 if(extras != null)
                 {
+
                     Bitmap photo = extras.getParcelable("data");
                     user_profile.setImageBitmap(photo);
 
@@ -306,6 +304,10 @@ public class MyPage_Fragment_Sub extends Fragment {
                     absolutepath = filePath;
                     break;
                 }
+
+
+
+
                 File f = new File(mImageCaptureUri.getPath());
                 if(f.exists())
                 {
@@ -440,28 +442,26 @@ public class MyPage_Fragment_Sub extends Fragment {
 
     }
 
+    //이미지로더
+
+
+
+
     //디비에서 유저이미지 가져오기 메소드
     public void ReceiveImg(){
+
 
         queue = Volley.newRequestQueue(getContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                    JSONObject jsonobject = new JSONObject(response);
-                    JSONArray jsonArray = jsonobject.getJSONArray("user");
-                    JSONObject data = jsonArray.getJSONObject(0);
-
-                    String userimg = data.getString("userimg");
 
                     //서버에서 가져온 이미지 셋팅
-                    Bitmap myBitmap = BitmapFactory.decodeFile(userimg);
-                    user_profile.setImageBitmap(myBitmap);
+                 // Bitmap myBitmap = BitmapFactory.decodeFile(userimg);
+                 //      user_profile.setImageBitmap(myBitmap);
 
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -480,31 +480,10 @@ public class MyPage_Fragment_Sub extends Fragment {
         queue.add(stringRequest);
     }
 
-    //이미지 셋팅작업
-    public Bitmap rotate(Bitmap src, float degree) {
-
-        // Matrix 객체 생성
-        Matrix matrix = new Matrix();
-        // 회전 각도 셋팅
-        matrix.postRotate(degree);
-        // 이미지와 Matrix 를 셋팅해서 Bitmap 객체 생성
-        return Bitmap.createBitmap(src, 0, 0, src.getWidth(),
-                src.getHeight(), matrix, true);
-    }
-
-    public int exifOrientationToDegrees(int exifOrientation) {
-        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            return 90;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            return 180;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            return 270;
-        }
-        return 0;
-    }
 
 
-    //디비에 유저이미지 저장하기 메소드
+
+
     public void delete() {
 
         requestQueue = Volley.newRequestQueue(getContext());

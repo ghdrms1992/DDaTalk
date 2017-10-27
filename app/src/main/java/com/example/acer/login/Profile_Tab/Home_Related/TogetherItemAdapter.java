@@ -77,6 +77,10 @@ public class TogetherItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+
+
+
         final Context context = parent.getContext();
         sharedPrefManager = SharedPrefManager.getInstance(context);
         rq = Volley.newRequestQueue(context);
@@ -91,6 +95,8 @@ public class TogetherItemAdapter extends BaseAdapter {
         }
         final TogetherItemView finalView = view;
         final TogetherItem item = items.get(position);
+
+
 
         Button together_button = (Button)view.findViewById(R.id.together_button);
         together_button.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +161,6 @@ public class TogetherItemAdapter extends BaseAdapter {
 
         view.setEmail(item.getEmail());
         view.setContent(item.getContent());
-        view.setImageView(item.getResId());
         view.setTogether_tv(item.getTogether());
         view.setComment_Tv(item.getComment());
         view.setRental_spot(item.getRental_spot());

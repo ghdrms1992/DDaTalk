@@ -38,7 +38,7 @@ public class Home_Fragment extends Fragment {
 
 
     RequestQueue rq;
-    String content, date, email,rental_spot;
+    String content, date, email,rental_spot,imgPath;
     int reply_cnt, with_cnt, writing_no;
 
     int get_writing_no, get_reply_cnt;
@@ -50,10 +50,11 @@ public class Home_Fragment extends Fragment {
     Handler handler;
     Timer timerMTimer;
 
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
+
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -67,6 +68,8 @@ public class Home_Fragment extends Fragment {
         final ListView together2 = (ListView) rootView.findViewById(R.id.together2);
         progressDialog = new ProgressDialog(rootView.getContext());
         rq = Volley.newRequestQueue(getActivity());
+
+    //    ReceiveImg();
 
         progressDialog.setMessage("로딩중.. 좀만 기둘려주떼염");
         progressDialog.show();
@@ -97,7 +100,7 @@ public class Home_Fragment extends Fragment {
                                         Writing w = new Writing(content, reply_cnt, with_cnt, date, writing_no, email,rental_spot);
 
 
-                                        TogetherItem togetherItem = new TogetherItem(w.getWriting_no(), w.getEmail(), w.getContent(), w.getDate(), R.drawable.user,
+                                        TogetherItem togetherItem = new TogetherItem(w.getWriting_no(), w.getEmail(), w.getContent(), w.getDate(), imgPath,
                                                 w.getWith_cnt(), w.getReply_cnt(), w.getRental_spot());
 
                                         adapter.addItem(togetherItem);
@@ -147,6 +150,8 @@ public class Home_Fragment extends Fragment {
 
         return rootView;
     }
+
+
 
 
 }

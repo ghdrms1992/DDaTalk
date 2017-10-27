@@ -4,7 +4,6 @@ package com.example.acer.login.Profile_Tab;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Bundle;
@@ -39,7 +38,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,6 +47,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MyPage_Fragment extends Fragment{
+
 
     ViewGroup rootView;
 
@@ -60,7 +59,7 @@ public class MyPage_Fragment extends Fragment{
 
     ArrayList<HashMap<String, String>> mArrayList;
 
-    ImageView imageView, user_profile;
+    ImageView imageView,user_profile;
     ImageButton mimageButton;
 
     TextView textView;
@@ -97,8 +96,6 @@ public class MyPage_Fragment extends Fragment{
         username = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUsername();
         userbirth = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserBirthday();
         useremail = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
-
-        ReceiveImg();
 
         textView.setText(username);
 
@@ -228,50 +225,7 @@ public class MyPage_Fragment extends Fragment{
         return 0;
     }
 
-    //디비에서 유저이미지 가져오기 메소드
-    public void ReceiveImg(){
 
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl2, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonobject = new JSONObject(response);
-                    JSONArray jsonArray = jsonobject.getJSONArray("user");
-                    JSONObject data = jsonArray.getJSONObject(0);
-
-                    String userimg = data.getString("userimg");
-
-                    //이미지 셋팅
-                    //서버에서 가져온 이미지 셋팅
-                    File imgFile = new File(userimg);
-                    if(imgFile.exists())
-                    {
-                        Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                        user_profile.setImageBitmap(myBitmap);
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Something went wrong",Toast.LENGTH_LONG).show();
-                error.printStackTrace();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> parameters = new HashMap<String, String>();
-                parameters.put("email", useremail);
-                return parameters;
-            }
-        };
-        queue.add(stringRequest);
-    }
 
 
 }
