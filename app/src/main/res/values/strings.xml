@@ -107,6 +107,8 @@
     <string name="title_activity_tab5">Tab5</string>
     <string name="title_activity_tab6">Tab6</string>
     <string name="alarm_textView">알림판</string>
+    <string name="together_item_rental_spot">장소</string>
+    <string name="together_item_writingtime">작성시간</string>
 
 
 </resources>
