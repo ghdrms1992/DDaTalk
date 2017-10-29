@@ -1,6 +1,7 @@
 package com.example.acer.login.Profile_Tab.Home_Related;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -64,6 +65,8 @@ public class TogetherItemView extends LinearLayout {
     public void setComment_Tv(int comment){
         comment_tv.setText(String.valueOf(comment));
     }
+
+    public void setImageView(Bitmap bm){imageView.setImageBitmap(bm);}
 
 
 }

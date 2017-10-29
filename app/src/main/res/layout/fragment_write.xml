@@ -112,18 +112,30 @@
 
             <TextView
                 android:id="@+id/guTitle"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:gravity="center_horizontal"
                 android:text="@string/guTitle"
                 android:textSize="18sp"
                 tools:ignore="MissingConstraints,NestedWeights,RtlHardcoded" />
+
+            <!--<EditText-->
+                <!--android:id="@+id/guView"-->
+                <!--android:layout_width="200dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:ems="10"-->
+                <!--android:layout_marginLeft="25dp"-->
+                <!--android:gravity="start"-->
+                <!--android:textSize="15sp"-->
+                <!--android:inputType="text" android:layout_marginStart="25dp" />-->
 
             <TextView
                 android:id="@+id/guView"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
 
+                android:layout_marginLeft="25dp"
                 android:background="@drawable/border"
                 android:gravity="start"
                 android:textSize="15sp"
@@ -131,7 +143,7 @@
 
             <ImageButton
                 android:id="@+id/search_btn"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:layout_marginLeft="20dp"
@@ -152,18 +164,30 @@
 
             <TextView
                 android:id="@+id/spotTitle"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:gravity="center_horizontal"
                 android:text="@string/spotTitle"
                 android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@+id/writing_sec"
                 tools:ignore="MissingConstraints,NestedWeights,RtlHardcoded" />
 
+            <!--<EditText-->
+                <!--android:id="@+id/SpotView"-->
+                <!--android:layout_width="200dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:ems="10"-->
+                <!--android:inputType="text"-->
+                <!--android:gravity="start"-->
+                <!--android:textSize="15sp" android:layout_marginStart="10dp"/>-->
+
             <TextView
                 android:id="@+id/SpotView"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/border"
                 android:gravity="start"
                 android:textSize="15sp"
@@ -175,9 +199,4 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/levelView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.27" />
 </LinearLayout>

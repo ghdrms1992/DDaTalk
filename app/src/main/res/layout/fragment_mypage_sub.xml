@@ -19,7 +19,7 @@
         android:weightSum="1"
         tools:ignore="InefficientWeight,UseCompoundDrawables">
 
-        <ImageView
+        <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/user_profile"
             android:layout_width="59dp"
             android:layout_height="59dp"
@@ -198,23 +198,6 @@
                 tools:ignore="RtlHardcoded" />
 
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_weight="0.45"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <ImageButton
-            android:id="@+id/back_btn"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:background="#00000000"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/back"
-            android:contentDescription="" />
     </LinearLayout>
 
 

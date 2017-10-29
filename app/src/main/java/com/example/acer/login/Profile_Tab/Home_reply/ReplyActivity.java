@@ -45,7 +45,7 @@ public class ReplyActivity extends AppCompatActivity {
     String content,date,email,emailOfWriting,writing_no_param,UserEmail_Present,rental_spot;
     int writing_no,reply_no/*,picture*/;
     EditText editTextReply;
-//    TextView textViewEmail, textViewContent;
+    //    TextView textViewEmail, textViewContent;
 //    ImageView imageView;
     TextView textViewRental_Spot;
     Button buttonWriteReply;
@@ -120,7 +120,7 @@ public class ReplyActivity extends AppCompatActivity {
                 String Reply_Content = editTextReply.getText().toString();
                 long time = System.currentTimeMillis();
 
-                SimpleDateFormat dayTime = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss", Locale.KOREAN);
+                SimpleDateFormat dayTime = new SimpleDateFormat("MMMM yyyy", Locale.KOREAN);
 
                 String cur_date = dayTime.format(new Date(time));//9시간 느린문제 해결해야됨
 
@@ -164,6 +164,10 @@ public class ReplyActivity extends AppCompatActivity {
                             JSONObject obj = arr.getJSONObject(i);
                             content = obj.getString("content");
                             date = obj.getString("date");
+                            String month = date.substring(5,7);
+                            String year = date.substring(0,4);
+                            String day = date.substring(8,10);
+                            date = year+"년 "+month+"월 "+day+"일 ";
                             email = obj.getString("email");
                             reply_no = obj.getInt("reply_no");
                             writing_no = obj.getInt("writing_no");

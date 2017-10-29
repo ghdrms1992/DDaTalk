@@ -2,6 +2,8 @@ package com.example.acer.login.Profile_Tab;
 
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +34,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -97,10 +102,15 @@ public class Home_Fragment extends Fragment {
                                         with_cnt = obj.getInt("with_cnt");
                                         writing_no = obj.getInt("writing_no");
                                         rental_spot = obj.getString("rental_spot");
+                                        imgPath = obj.getString("userimg");
+                                        byte [] encodeByte= Base64.decode(imgPath,Base64.DEFAULT);
+
+                                        InputStream inputStream  = new ByteArrayInputStream(encodeByte);
+                                        Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
                                         Writing w = new Writing(content, reply_cnt, with_cnt, date, writing_no, email,rental_spot);
 
 
-                                        TogetherItem togetherItem = new TogetherItem(w.getWriting_no(), w.getEmail(), w.getContent(), w.getDate(), imgPath,
+                                        TogetherItem togetherItem = new TogetherItem(w.getWriting_no(), w.getEmail(), w.getContent(), w.getDate(), bitmap,
                                                 w.getWith_cnt(), w.getReply_cnt(), w.getRental_spot());
 
                                         adapter.addItem(togetherItem);

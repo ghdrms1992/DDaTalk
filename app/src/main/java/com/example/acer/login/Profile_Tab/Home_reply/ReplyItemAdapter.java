@@ -82,8 +82,8 @@ class ReplyItemAdapter extends BaseAdapter {
         });
         view.setName(item.getEmail());
         view.setContent(item.getContent());
-        String time = item.getReply_time().substring(0,10);
-        view.setTime(time);
+//        String time = item.getReply_time().substring(0,9);
+        view.setTime(item.getReply_time());
         boolean swipeEnable = swipeEnableByViewType(getItemViewType(position));
         viewHolder.sml.setSwipeEnable(swipeEnable);
         return view;

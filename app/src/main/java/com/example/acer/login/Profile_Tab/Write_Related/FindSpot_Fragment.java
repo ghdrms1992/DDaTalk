@@ -327,8 +327,8 @@ public class FindSpot_Fragment extends Fragment {
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, send);
-                transaction.addToBackStack(null);
-
+//                transaction.addToBackStack(null);
+                transaction.disallowAddToBackStack();
                 transaction.commit();
 
 

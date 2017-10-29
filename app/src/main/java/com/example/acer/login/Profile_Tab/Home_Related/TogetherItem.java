@@ -1,6 +1,8 @@
 package com.example.acer.login.Profile_Tab.Home_Related;
 
 
+import android.graphics.Bitmap;
+
 public class TogetherItem {
     private String email;
     private String content;
@@ -9,14 +11,15 @@ public class TogetherItem {
     private int together, comment;
     private int writing_no;
     private String rental_spot;
+    private Bitmap bm;
 
 
-    public TogetherItem(int writing_no,String email, String content,String date, String imgPath, int together, int comment,String rental_spot) {
+    public TogetherItem(int writing_no,String email, String content,String date, Bitmap bm, int together, int comment,String rental_spot) {
         this.writing_no = writing_no;
         this.email = email;
         this.content = content;
         this.date = date;
-        this.imgPath = imgPath;
+        this.bm = bm;
         this.together = together;
         this.comment = comment;
         this.rental_spot = rental_spot;
@@ -84,5 +87,6 @@ public class TogetherItem {
 
     public void setimgPath(String imgPath) {this.imgPath = imgPath;}
 
+    public Bitmap getBM(){return this.bm;}
 
 }

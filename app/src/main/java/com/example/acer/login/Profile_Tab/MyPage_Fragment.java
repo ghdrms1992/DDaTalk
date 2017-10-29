@@ -26,12 +26,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.MyPage_Related.ListView_Adapter;
 import com.example.acer.login.Profile_Tab.MyPage_Related.List_writing;
 import com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_Fragment_Sub;
+import com.example.acer.login.Profile_Tab.MyPage_Related.VolleySingleton;
 import com.example.acer.login.R;
 
 import org.json.JSONArray;
@@ -48,6 +51,9 @@ import java.util.Map;
 
 public class MyPage_Fragment extends Fragment{
 
+    private ImageLoader mImageLoader;
+
+    RequestQueue queue;
 
     ViewGroup rootView;
 
@@ -59,7 +65,8 @@ public class MyPage_Fragment extends Fragment{
 
     ArrayList<HashMap<String, String>> mArrayList;
 
-    ImageView imageView,user_profile;
+    ImageView imageView;
+    NetworkImageView user_profile;
     ImageButton mimageButton;
 
     TextView textView;
@@ -84,7 +91,7 @@ public class MyPage_Fragment extends Fragment{
 
         mArrayList = new ArrayList<>();
 
-        user_profile = (ImageView)rootView.findViewById(R.id.user_profile);
+        user_profile = (NetworkImageView) rootView.findViewById(R.id.user_profile);
         imageView = (ImageView) rootView.findViewById(R.id.imageView4);
         mimageButton = (ImageButton) rootView.findViewById(R.id.imageButton11);
 
@@ -96,6 +103,9 @@ public class MyPage_Fragment extends Fragment{
         username = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUsername();
         userbirth = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserBirthday();
         useremail = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
+
+        ReceiveImg();
+        user_profile.setImageUrl("http://104.198.211.126/getUserimgUri.php?email="+useremail, mImageLoader);
 
         textView.setText(username);
 
@@ -225,7 +235,39 @@ public class MyPage_Fragment extends Fragment{
         return 0;
     }
 
+    //디비에서 유저이미지 가져오기 메소드
+    public void ReceiveImg(){
+        mImageLoader = VolleySingleton.getInstance(getContext()).getImageLoader();
 
+        queue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl2, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                //서버에서 가져온 이미지 셋팅
+                // Bitmap myBitmap = BitmapFactory.decodeFile(userimg);
+                //      user_profile.setImageBitmap(myBitmap);
+
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Something went wrong",Toast.LENGTH_LONG).show();
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parameters = new HashMap<String, String>();
+                parameters.put("email", useremail);
+                return parameters;
+            }
+        };
+        queue.add(stringRequest);
+    }
 
 
 }

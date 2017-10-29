@@ -165,6 +165,7 @@ public class TogetherItemAdapter extends BaseAdapter {
         view.setComment_Tv(item.getComment());
         view.setRental_spot(item.getRental_spot());
         view.setWrting_date(item.getDate());
+        view.setImageView(item.getBM());
 
         return view;
 

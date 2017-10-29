@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.SharedPrefManager;
-import com.example.acer.login.Profile_Tab.Stamp_Fragment;
 import com.example.acer.login.R;
 
 import org.json.JSONArray;
@@ -55,21 +53,7 @@ public class Stamp_Fragment_sub extends Fragment {
 
         final SharedPrefManager sharedPrefManager = SharedPrefManager.getInstance(rootView.getContext());
 
-        // 스탬프페이지로 돌아가기
-        backtostamp = (ImageButton) rootView.findViewById(R.id.backtostamp);
-        backtostamp.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-                // Create new fragment and transaction
-                Fragment someFragment = new Stamp_Fragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, someFragment);
-                transaction.addToBackStack(null);
-
-                transaction.commit();
-
-            }
-        });
 
 
         //로그인한 유저레벨 가져오기

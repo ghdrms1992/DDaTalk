@@ -70,15 +70,4 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/backtostamp"
-        android:layout_width="51dp"
-        android:layout_height="55dp"
-        android:background="@android:color/transparent"
-        app:srcCompat="@drawable/back"
-        tools:ignore="MissingConstraints,RtlHardcoded"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>

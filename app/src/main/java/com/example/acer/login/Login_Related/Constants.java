@@ -23,4 +23,7 @@ public class Constants {
 
     public static final String URL_ALARM_INFO = ROOT_URL+"AlarmInfoByEmail.php";
 
+    public static final String URL_RECEIVE_IMG = "http://104.198.211.126/getUserimgUri.php";
+
+    public static final String URL_MAIN_IMG = "http://104.198.211.126/getMainImg.php";
 }

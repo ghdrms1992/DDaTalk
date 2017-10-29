@@ -109,7 +109,10 @@ public class Write_Fragment extends Fragment{
                 editor.remove("content");
                 editor.commit();
 
+
                 Intent i = new Intent(getActivity().getApplication(), ProfileActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
 
             }
@@ -280,6 +283,10 @@ public class Write_Fragment extends Fragment{
 
 
             }
+                Intent i = new Intent(getActivity().getApplication(), ProfileActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
 
         }
     });
