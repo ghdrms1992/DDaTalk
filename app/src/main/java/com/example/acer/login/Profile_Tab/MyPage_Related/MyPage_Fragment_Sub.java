@@ -172,7 +172,10 @@ public class MyPage_Fragment_Sub extends Fragment {
             @Override
             public void onClick(View v) {
                 SharedPrefManager.getInstance(getActivity().getApplicationContext()).logout();
-                startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class));
+                Intent i = new Intent(getActivity().getApplication(), LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
             }
         });
 
@@ -182,7 +185,10 @@ public class MyPage_Fragment_Sub extends Fragment {
                 delete();
                 Toast.makeText(rootView.getContext(), "회원탈퇴에 성공했습니다.", Toast.LENGTH_LONG).show();
                 SharedPrefManager.getInstance(getActivity().getApplicationContext()).logout();
-                startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class));
+                Intent i = new Intent(getActivity().getApplication(), LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
             }
         });
 
