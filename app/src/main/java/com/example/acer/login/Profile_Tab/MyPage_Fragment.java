@@ -137,7 +137,7 @@ public class MyPage_Fragment extends Fragment{
             }
         });
 
-        progressDialog.setMessage("Please Wait, We are getting Your Data on Server");
+        progressDialog.setMessage("조금만 기달려 주떼염! 로딩 중 ...");
         progressDialog.show();
 
 

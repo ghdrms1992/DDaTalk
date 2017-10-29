@@ -130,7 +130,7 @@ public class Home_Fragment extends Fragment {
                     }
                 });
             }
-        },0,60000*3);
+        },0,60000*4);
 
         Bundle extra = getArguments();
         if(extra != null) {

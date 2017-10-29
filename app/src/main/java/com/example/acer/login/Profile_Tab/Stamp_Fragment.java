@@ -1,6 +1,7 @@
 package com.example.acer.login.Profile_Tab;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -52,6 +53,8 @@ public class Stamp_Fragment extends Fragment {
     int maxExp,Ll,Ee ;
 
 
+    ProgressDialog progressDialog;
+
     public void setProgressBarColor(ProgressBar progressBar, int newColor){
         LayerDrawable ld = (LayerDrawable) progressBar.getProgressDrawable();
         ClipDrawable d1 = (ClipDrawable) ld.findDrawableByLayerId(R.id.progressshape);
@@ -70,7 +73,7 @@ public class Stamp_Fragment extends Fragment {
         levelbar = (ImageView) rootView.findViewById(R.id.levelbar);
         final SharedPrefManager sharedPrefManager = SharedPrefManager.getInstance(rootView.getContext());
 
-
+        progressDialog = new ProgressDialog(rootView.getContext());
 // 서브스탬프로 들어가기
         stampcollect = (ImageButton) rootView.findViewById(R.id.stampcollect);
         stampcollect.setOnClickListener(new View.OnClickListener() {
@@ -87,10 +90,13 @@ public class Stamp_Fragment extends Fragment {
             }
         });
 
+        progressDialog.setMessage("로딩중.. 좀만 기둘려주떼염");
+        progressDialog.show();
         requestQueue = Volley.newRequestQueue(getActivity().getApplication());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://104.198.211.126/getExp.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressDialog.dismiss();
                 if(!response.equals("0 results")){
                     Toast.makeText(getActivity().getApplication(),"데이터 가져오기 성공",Toast.LENGTH_LONG).show();
 

@@ -116,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
                                         }
                                         assert arr != null;
                                         original = arr.length();
-                                        Toast.makeText(getApplicationContext(),String.valueOf(original),Toast.LENGTH_LONG).show();
+//                                        Toast.makeText(getApplicationContext(),String.valueOf(original),Toast.LENGTH_LONG).show();
                                     }
                                 }
                             }, new Response.ErrorListener() {
@@ -177,7 +177,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0/*1000 = 액티비티 onCreate 호출 후 1초후에*/, 10000/*1000 = 1초마다 작업 실행, 현재는 5분마다 실행*/);
+        }, 0/*1000 = 액티비티 onCreate 호출 후 1초후에*/, 10000*3/*1000 = 1초마다 작업 실행, 현재는 30초마다 실행*/);
 
 
         homeFragment = new Home_Fragment();
