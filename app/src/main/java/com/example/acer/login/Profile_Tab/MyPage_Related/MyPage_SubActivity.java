@@ -1,6 +1,5 @@
 package com.example.acer.login.Profile_Tab.MyPage_Related;
 
-
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -11,17 +10,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,11 +48,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.app.Activity.RESULT_OK;
 import static com.example.acer.login.R.id.textView7;
 
-public class MyPage_Fragment_Sub extends Fragment {
-
+public class MyPage_SubActivity extends AppCompatActivity {
     private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
 
     private static final int PICK_FROM_CAMERA = 0;
@@ -82,39 +76,29 @@ public class MyPage_Fragment_Sub extends Fragment {
 
     ProgressDialog progressDialog;
     RequestQueue requestQueue, queue;
-
-    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_page__sub);
         checkPermissions();
+        getSupportActionBar().hide();
 
-    }
+        requestQueue = Volley.newRequestQueue(MyPage_SubActivity.this);
+        queue = Volley.newRequestQueue(MyPage_SubActivity.this);
+        progressDialog = new ProgressDialog(MyPage_SubActivity.this);
 
+        photo_btn = (ImageButton)findViewById(R.id.photoButton);
+        nameView = (TextView)findViewById(R.id.textView);
+        mtextView1 = (TextView)findViewById(textView7);
+        mtextView2 = (TextView)findViewById(R.id.textView9);
+        mtextView3 = (TextView)findViewById(R.id.textView11);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_mypage_sub, container, false);
-
-
-        //발리 준비작업
-        requestQueue = Volley.newRequestQueue(rootView.getContext());
-        queue = Volley.newRequestQueue(rootView.getContext());
-        progressDialog = new ProgressDialog(rootView.getContext());
-
-        photo_btn = (ImageButton)rootView.findViewById(R.id.photoButton);
-        nameView = (TextView)rootView.findViewById(R.id.textView);
-        mtextView1 = (TextView)rootView.findViewById(textView7);
-        mtextView2 = (TextView)rootView.findViewById(R.id.textView9);
-        mtextView3 = (TextView)rootView.findViewById(R.id.textView11);
-
-        user_profile = (NetworkImageView)rootView.findViewById(R.id.user_profile);
+        user_profile = (NetworkImageView)findViewById(R.id.user_profile);
         //user_profile = (ImageView)rootView.findViewById(R.id.user_profile);
 
-        name = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUsername();
-        birthday = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserBirthday();
-        email = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserEmail();
+        name = SharedPrefManager.getInstance(MyPage_SubActivity.this).getUsername();
+        birthday = SharedPrefManager.getInstance(MyPage_SubActivity.this).getUserBirthday();
+        email = SharedPrefManager.getInstance(MyPage_SubActivity.this).getUserEmail();
 
 
         nameView.setText(name);
@@ -123,9 +107,9 @@ public class MyPage_Fragment_Sub extends Fragment {
         mtextView3.setText(email);
 
 
-        ImageButton deleteButton = (ImageButton)rootView.findViewById(R.id.deleteButton);
-        ImageButton logoutButton = (ImageButton)rootView.findViewById(R.id.logoutButton);
-        ImageButton photoButton = (ImageButton)rootView.findViewById(R.id.photoButton);
+        ImageButton deleteButton = (ImageButton)findViewById(R.id.deleteButton);
+        ImageButton logoutButton = (ImageButton)findViewById(R.id.logoutButton);
+        ImageButton photoButton = (ImageButton)findViewById(R.id.photoButton);
 
         //유저 이미지 가져오기 실행
         ReceiveImg();
@@ -159,7 +143,7 @@ public class MyPage_Fragment_Sub extends Fragment {
                         dialog.dismiss();
                     }
                 };
-                new AlertDialog.Builder(getContext())
+                new AlertDialog.Builder(MyPage_SubActivity.this)
                         .setTitle("업로드할 이미지 선택")
                         // .setPositiveButton("사진촬영", cameraListener)
                         .setNeutralButton("앨범선택",albumListener)
@@ -171,8 +155,8 @@ public class MyPage_Fragment_Sub extends Fragment {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPrefManager.getInstance(getActivity().getApplicationContext()).logout();
-                Intent i = new Intent(getActivity().getApplication(), LoginActivity.class);
+                SharedPrefManager.getInstance(MyPage_SubActivity.this).logout();
+                Intent i = new Intent(MyPage_SubActivity.this, LoginActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
@@ -183,19 +167,16 @@ public class MyPage_Fragment_Sub extends Fragment {
             @Override
             public void onClick(View v) {
                 delete();
-                Toast.makeText(rootView.getContext(), "회원탈퇴에 성공했습니다.", Toast.LENGTH_LONG).show();
-                SharedPrefManager.getInstance(getActivity().getApplicationContext()).logout();
-                Intent i = new Intent(getActivity().getApplication(), LoginActivity.class);
+                Toast.makeText(MyPage_SubActivity.this, "회원탈퇴에 성공했습니다.", Toast.LENGTH_LONG).show();
+                SharedPrefManager.getInstance(MyPage_SubActivity.this).logout();
+                Intent i = new Intent(MyPage_SubActivity.this, LoginActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
         });
 
-
-        return rootView;
     }
-
 
     public void doTakePhotoAction() {
 
@@ -206,11 +187,11 @@ public class MyPage_Fragment_Sub extends Fragment {
         try {
             photoFile = createImageFile();
         } catch (IOException e) {
-            Toast.makeText(getActivity().getApplicationContext(), "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MyPage_SubActivity.this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
         }
 
         if (photoFile != null) {
-            mImageCaptureUri = FileProvider.getUriForFile(getActivity().getApplicationContext(),BuildConfig.APPLICATION_ID+".provider", photoFile);
+            mImageCaptureUri = FileProvider.getUriForFile(MyPage_SubActivity.this, BuildConfig.APPLICATION_ID+".provider", photoFile);
 
 
 
@@ -256,12 +237,12 @@ public class MyPage_Fragment_Sub extends Fragment {
             {
                 try{
                     mImageCaptureUri = data.getData();
-                    bm = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), mImageCaptureUri);
+                    bm = MediaStore.Images.Media.getBitmap(MyPage_SubActivity.this.getContentResolver(), mImageCaptureUri);
 
                     Log.d("ddaTalk", mImageCaptureUri.getPath().toString());
                 }
                 catch (Exception e) {
-                    Toast.makeText(getActivity().getApplicationContext(), "앨범선택시에러", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MyPage_SubActivity.this, "앨범선택시에러", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -341,7 +322,7 @@ public class MyPage_Fragment_Sub extends Fragment {
                 out = new BufferedOutputStream(new FileOutputStream(copyFile));
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
-                getActivity().getApplicationContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
+                MyPage_SubActivity.this.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
 
                 out.flush();
                 out.close();
@@ -358,7 +339,7 @@ public class MyPage_Fragment_Sub extends Fragment {
                 out = new BufferedOutputStream(new FileOutputStream(copyFile));
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
-                getActivity().getApplicationContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
+                MyPage_SubActivity.this.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
 
                 out.flush();
                 out.close();
@@ -375,13 +356,13 @@ public class MyPage_Fragment_Sub extends Fragment {
         int result;
         List<String> permissionList = new ArrayList<>();
         for (String pm : permissions) {
-            result = ContextCompat.checkSelfPermission(getContext(), pm);
+            result = ContextCompat.checkSelfPermission(MyPage_SubActivity.this, pm);
             if (result != PackageManager.PERMISSION_GRANTED) { //사용자가 해당 권한을 가지고 있지 않을 경우 리스트에 해당 권한명 추가
                 permissionList.add(pm);
             }
         }
         if (!permissionList.isEmpty()) { //권한이 추가되었으면 해당 리스트가 empty가 아니므로 request 즉 권한을 요청합니다.
-            ActivityCompat.requestPermissions(getActivity(), permissionList.toArray(new String[permissionList.size()]), MULTIPLE_PERMISSIONS);
+            ActivityCompat.requestPermissions(MyPage_SubActivity.this, permissionList.toArray(new String[permissionList.size()]), MULTIPLE_PERMISSIONS);
             return false;
         }
         return true;
@@ -418,14 +399,14 @@ public class MyPage_Fragment_Sub extends Fragment {
     }
 
     private void showNoPermissionToastAndFinish() {
-        Toast.makeText(getContext(), "권한 요청에 동의 해주셔야 이용 가능합니다. 설정에서 권한 허용 하시기 바랍니다.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MyPage_SubActivity.this, "권한 요청에 동의 해주셔야 이용 가능합니다. 설정에서 권한 허용 하시기 바랍니다.", Toast.LENGTH_SHORT).show();
     }
 
 
     //디비에 유저이미지 저장하기 메소드
     public void SendImg(final String userimg) {
 
-        requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue = Volley.newRequestQueue(MyPage_SubActivity.this);
         StringRequest request = new StringRequest(Request.Method.POST, HttpUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -457,9 +438,9 @@ public class MyPage_Fragment_Sub extends Fragment {
 
     //디비에서 유저이미지 가져오기 메소드
     public void ReceiveImg(){
-        mImageLoader = VolleySingleton.getInstance(getContext()).getImageLoader();
+        mImageLoader = VolleySingleton.getInstance(MyPage_SubActivity.this).getImageLoader();
 
-        queue = Volley.newRequestQueue(getContext());
+        queue = Volley.newRequestQueue(MyPage_SubActivity.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -474,7 +455,7 @@ public class MyPage_Fragment_Sub extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Something went wrong",Toast.LENGTH_LONG).show();
+                Toast.makeText(MyPage_SubActivity.this, "Something went wrong",Toast.LENGTH_LONG).show();
                 error.printStackTrace();
             }
         }) {
@@ -501,7 +482,7 @@ public class MyPage_Fragment_Sub extends Fragment {
 
     public void delete() {
 
-        requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue = Volley.newRequestQueue(MyPage_SubActivity.this);
         StringRequest request = new StringRequest(Request.Method.POST, HttpUrl3, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -330,7 +330,7 @@ public class FindSpot_Fragment extends Fragment {
 //                transaction.addToBackStack(null);
                 transaction.disallowAddToBackStack();
                 transaction.commit();
-
+                getActivity().onBackPressed();
 
 
             }

@@ -3,6 +3,7 @@ package com.example.acer.login.Profile_Tab;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
@@ -33,7 +34,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.SharedPrefManager;
 import com.example.acer.login.Profile_Tab.MyPage_Related.ListView_Adapter;
 import com.example.acer.login.Profile_Tab.MyPage_Related.List_writing;
-import com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_Fragment_Sub;
+import com.example.acer.login.Profile_Tab.MyPage_Related.MyPage_SubActivity;
 import com.example.acer.login.Profile_Tab.MyPage_Related.VolleySingleton;
 import com.example.acer.login.R;
 
@@ -113,11 +114,14 @@ public class MyPage_Fragment extends Fragment{
             @Override
             public void onClick(View v) {
 
-                Fragment mypage_sub = new MyPage_Fragment_Sub();
+                Intent intent = new Intent(getActivity().getApplication(), MyPage_SubActivity.class);
+                startActivity(intent);
+                /*Fragment mypage_sub = new MyPage_Fragment_Sub();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, mypage_sub);
-                transaction.addToBackStack(null);
-                transaction.commit();
+//                transaction.addToBackStack(null);
+                transaction.disallowAddToBackStack();
+                transaction.commit();*/
                 InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
 
@@ -130,7 +134,8 @@ public class MyPage_Fragment extends Fragment{
                 Fragment writeFrag = new Write_Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, writeFrag);
-                transaction.addToBackStack(null);
+//                transaction.addToBackStack(null);
+                transaction.disallowAddToBackStack();
                 transaction.commit();
                 InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);

@@ -9,14 +9,10 @@
 
     <application
         android:allowBackup="true"
-
         android:hardwareAccelerated="false"
-
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-
         android:largeHeap="true"
-
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
@@ -77,6 +73,8 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <activity android:name=".Profile_Tab.Stamp_Related.Stamp_CollectActivity" />
+        <activity android:name=".Profile_Tab.MyPage_Related.MyPage_SubActivity" />
     </application>
 
 </manifest>

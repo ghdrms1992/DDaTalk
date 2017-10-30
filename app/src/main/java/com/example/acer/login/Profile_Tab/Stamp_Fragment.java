@@ -3,6 +3,7 @@ package com.example.acer.login.Profile_Tab;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ClipDrawable;
@@ -10,7 +11,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +28,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.acer.login.Login_Related.SharedPrefManager;
-import com.example.acer.login.Profile_Tab.Stamp_Related.Stamp_Fragment_sub;
 import com.example.acer.login.R;
+import com.example.acer.login.Profile_Tab.Stamp_Related.Stamp_CollectActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,12 +80,14 @@ public class Stamp_Fragment extends Fragment {
 
             public void onClick(View v) {
                 // Create new fragment and transaction
-                Fragment anyFragment = new Stamp_Fragment_sub();
+                /*Fragment anyFragment = new Stamp_Fragment_sub();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.container, anyFragment);
                 transaction.addToBackStack(null);
 
-                transaction.commit();
+                transaction.commit();*/
+                Intent intent = new Intent(getActivity().getApplication(), Stamp_CollectActivity.class);
+                startActivity(intent);
 
             }
         });

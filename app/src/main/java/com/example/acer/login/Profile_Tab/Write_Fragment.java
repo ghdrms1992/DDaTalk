@@ -151,9 +151,11 @@ public class Write_Fragment extends Fragment{
                 // Create new fragment and transaction
                 Fragment spotFragment = new FindSpot_Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, spotFragment);
+                transaction.replace(R.id.L_container, spotFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+//                Intent intent = new Intent(getActivity().getApplication(), FindSpot_Activity.class);
+//                startActivity(intent);
                 InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
 
@@ -166,10 +168,11 @@ public class Write_Fragment extends Fragment{
                 // Create new fragment and transaction
                 Fragment spotFragment = new FindSpot_Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, spotFragment);
+                transaction.replace(R.id.L_container, spotFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
-
+//                Intent intent = new Intent(getActivity().getApplication(), FindSpot_Activity.class);
+//                startActivity(intent);
                 InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
 
@@ -182,10 +185,11 @@ public class Write_Fragment extends Fragment{
                 // Create new fragment and transaction
                Fragment spotFragment = new FindSpot_Fragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, spotFragment);
+                transaction.replace(R.id.L_container, spotFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
-
+//                Intent intent = new Intent(getActivity().getApplication(), FindSpot_Activity.class);
+//                startActivity(intent);
                 InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(),0);
 
@@ -329,7 +333,10 @@ public class Write_Fragment extends Fragment{
         super.onResume();
 
         //지역구,대여소 번들 받아오기
-
+        if(getArguments()!=null) {
+            receive_spot = getArguments().getString("rental_spot");
+            receive_gu = getArguments().getString("gu_selected");
+        }
         spot.setText(receive_spot);
         gu.setText(receive_gu);
 

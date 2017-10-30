@@ -1,14 +1,10 @@
 package com.example.acer.login.Profile_Tab.Stamp_Related;
 
-
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -31,33 +27,40 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Stamp_Fragment_sub extends Fragment {
-
+public class Stamp_CollectActivity extends AppCompatActivity {
     ImageView woodwheelmap;
     ImageView stonewheelmap;
     ImageView tirewheelmap;
     ImageView silverwheelmap;
     ImageView goldwheelmap;
     ImageView diamondwheelmap;
-    ImageButton backtostamp;
+    ImageButton imageButtonExit;
     ArrayList<Drawable> wheelmapList = new ArrayList<Drawable>();
 
     RequestQueue requestQueue;
     String L;
-
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_stamp_sub, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_stamp__collect);
 
-        final SharedPrefManager sharedPrefManager = SharedPrefManager.getInstance(rootView.getContext());
+        getSupportActionBar().hide();
+
+
+        final SharedPrefManager sharedPrefManager = SharedPrefManager.getInstance(getApplicationContext());
 
 
 
+        imageButtonExit = (ImageButton)findViewById(R.id.imageButtonExit);
+        imageButtonExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         //로그인한 유저레벨 가져오기
-        L = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUserLevel();
+        L = SharedPrefManager.getInstance(getApplicationContext()).getUserLevel();
 
 
         Resources res = getResources();
@@ -71,19 +74,19 @@ public class Stamp_Fragment_sub extends Fragment {
 
 
         //뷰객체 보여주
-        woodwheelmap = (ImageView) rootView.findViewById(R.id.woodwheelmap);
-        stonewheelmap = (ImageView) rootView.findViewById(R.id.stonewheelmap);
-        tirewheelmap = (ImageView) rootView.findViewById(R.id.tirewheelmap);
-        silverwheelmap = (ImageView) rootView.findViewById(R.id.silverwheelmap);
-        goldwheelmap = (ImageView) rootView.findViewById(R.id.goldwheelmap);
-        diamondwheelmap = (ImageView) rootView.findViewById(R.id.diamondwheelmap);
+        woodwheelmap = (ImageView) findViewById(R.id.woodwheelmap);
+        stonewheelmap = (ImageView) findViewById(R.id.stonewheelmap);
+        tirewheelmap = (ImageView) findViewById(R.id.tirewheelmap);
+        silverwheelmap = (ImageView) findViewById(R.id.silverwheelmap);
+        goldwheelmap = (ImageView) findViewById(R.id.goldwheelmap);
+        diamondwheelmap = (ImageView) findViewById(R.id.diamondwheelmap);
 
-        requestQueue = Volley.newRequestQueue(getActivity().getApplication());
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://104.198.211.126/getExp.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(!response.equals("0 results")){
-                    Toast.makeText(getActivity().getApplication(),"데이터 가져오기 성공",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"데이터 가져오기 성공",Toast.LENGTH_LONG).show();
 
 
                     try {
@@ -154,7 +157,7 @@ public class Stamp_Fragment_sub extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity().getApplication(),error.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
             }
         }){
             @Override
@@ -167,7 +170,5 @@ public class Stamp_Fragment_sub extends Fragment {
         };
         requestQueue.add(stringRequest);
 
-        return rootView;
     }
-
 }
